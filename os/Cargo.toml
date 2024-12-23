@@ -1,0 +1,43 @@
+[package]
+name = "os"
+version = "0.1.0"
+authors = [
+    "Maoyang Zheng <925349624@qq.com>",
+    "Zheyu Weng <windflower_weng@qq.com>",
+    "Chenhao Zhang <934111946@qq.com>",
+]
+edition = "2021"
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[dependencies]
+riscv = { git = "https://github.com/rcore-os/riscv", features = ["inline-asm"] }
+buddy_system_allocator = "0.6"
+bitflags = "1.2.1"
+xmas-elf = "0.7.0"
+# virtio-drivers = { git = "https://github.com/rcore-os/virtio-drivers", rev = "4ee80e5" }
+virtio-drivers= {path = "./vendor/virtio-drivers"}
+lwext4_rust= {path = "../lwext4_rust"}
+log = "0.4"
+sbi-rt = { version = "0.0.2", features = ["legacy"] }
+spin = "0.9.8"
+hashbrown = "0.12.0"
+num_enum = { version = "0.7.2", default-features = false }
+cfg-if = { version = "1.0.0" }
+visionfive2-sd = {path = "./vendor/visionfive2-sd"}
+[features]
+default = ["info","board_qemu"]
+# default = ["info","board_ramdisk","ltp"]
+error = []
+warn = []
+info = []
+debug = []
+
+board_qemu = []
+board_vf2 = []  # visionFive2 with sdcard
+board_ramdisk=[] # visionFive2 without sdcard
+
+ltp = []
+
+[profile.release]
+debug = true
